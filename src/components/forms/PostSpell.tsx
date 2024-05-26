@@ -17,20 +17,7 @@ import { Textarea } from "../ui/textarea";
 import { useRouter, usePathname } from "next/navigation";
 
 import { SpellValidationSchema } from "@/validations/spellSchema";
-import { updateUser } from "@/lib/actions/user/updateUser.actions";
-import { createSpell } from "@/lib/actions/spell/spell.actions";
-
-interface Props {
-  user: {
-    id: string;
-    objectId: string;
-    username: string;
-    name: string;
-    bio: string;
-    image: string;
-  };
-  btnTitle: string;
-}
+import { createSpell } from "@/lib/actions/spell/createSpell.actions";
 
 const PostSpell = ({ userId }: { userId: string }) => {
   const router = useRouter();

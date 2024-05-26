@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
         required: [true, "username is required"],
         unique: true,
     },
+    name: {
+        type: String,
+        required: true,
+    },
     image: String,
     bio: String,
     spells: [
@@ -30,6 +34,6 @@ const userSchema = new mongoose.Schema({
     ],
 })
 
-const UserModel = mongoose.models.users || mongoose.model('users', userSchema);
+const UserModel = mongoose.models.User || mongoose.model('User', userSchema);
 
 export default UserModel;

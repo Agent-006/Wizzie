@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+import { Schema } from 'mongoose';
 
-const spellSchema = new mongoose.Schema({
+const spellSchema: Schema = new mongoose.Schema({
     text: {
         type: String,
         required: true,
@@ -21,14 +22,14 @@ const spellSchema = new mongoose.Schema({
     parentId: {
         type: String,
     },
-    children : [
+    children: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Spell'
-        }
-    ]
-})
+            ref: 'Spell',
+        },
+    ],
+});
 
-const SpellModel = mongoose.models.spells || mongoose.model("spells", spellSchema)
+const SpellModel = mongoose.models.Spell || mongoose.model("Spell", spellSchema);
 
 export default SpellModel;
