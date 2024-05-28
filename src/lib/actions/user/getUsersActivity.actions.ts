@@ -13,7 +13,6 @@ export async function getActivity(userId: string) {
 
         // collect all the child spell ids (replies) from the 'children' field
         const childSpellIds = userSpells.reduce((acc, userSpell) => {
-            console.log(acc.concat(userSpell.children))
             return acc.concat(userSpell.children)
         }, [])
 

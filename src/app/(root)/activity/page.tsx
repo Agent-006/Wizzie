@@ -35,7 +35,7 @@ const Page = async () => {
                     className="rounded-full object-cover"
                   />
                   <p className="!text-base-regular text-light-1">
-                    <span className="mr-1 text-primary-500">
+                    <span className="mr-1 text-slate-400">
                       {acc.author.name}
                     </span>{" "}
                     replied to your thread
