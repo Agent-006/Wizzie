@@ -2,6 +2,7 @@ import { fetchUserPosts } from "@/lib/actions/user/fetchUserPosts.actions";
 import { redirect } from "next/navigation";
 import React from "react";
 import SpellCard from "../cards/SpellCard";
+import { fetchCommunityPosts } from "@/lib/actions/community/fetchCommunityPosts.actions";
 
 interface Props {
   currentUserId: string;
@@ -10,7 +11,13 @@ interface Props {
 }
 
 async function SpellsTab({ currentUserId, accountId, accountType }: Props) {
-  let result = await fetchUserPosts(accountId);
+  let result: any;
+
+  if (accountType === "Community") {
+    result = await fetchCommunityPosts(accountId);
+  } else {
+    result = await fetchUserPosts(accountId);
+  }
 
   if (!result) redirect("/");
 

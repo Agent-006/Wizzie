@@ -16,10 +16,12 @@ export async function getActivity(userId: string) {
             return acc.concat(userSpell.children)
         }, [])
 
+        // find and return the child spells excluding the ones created by the same user
         const replies = await SpellModel.find({
             _id: { $in: childSpellIds },
-            author: { $ne: userId }
-        }).populate({
+            author: { $ne: userId } // excluding the spells authored by the same user
+        })
+        .populate({
             path: 'author',
             model: UserModel,
             select: 'name image _id',

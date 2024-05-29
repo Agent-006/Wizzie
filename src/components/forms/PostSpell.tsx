@@ -19,9 +19,12 @@ import { useRouter, usePathname } from "next/navigation";
 import { SpellValidationSchema } from "@/validations/spellSchema";
 import { createSpell } from "@/lib/actions/spell/createSpell.actions";
 
+import { useOrganization } from "@clerk/nextjs";
+
 const PostSpell = ({ userId }: { userId: string }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const { organization } = useOrganization();
 
   const form = useForm({
     resolver: zodResolver(SpellValidationSchema),
@@ -32,14 +35,15 @@ const PostSpell = ({ userId }: { userId: string }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof SpellValidationSchema>) => {
+    console.log(organization)
     await createSpell({
       text: values.spell,
       author: values.accountId,
-      communityId: null,
+      communityId: organization ? organization.id : null,
       path: pathname,
     });
 
-    router.push("/")
+    router.push("/");
   };
 
   return (
@@ -56,7 +60,7 @@ const PostSpell = ({ userId }: { userId: string }) => {
               <FormLabel className="text-base-semibold text-light-2">
                 Content
               </FormLabel>
-              <FormControl className="no-focus border border-dark-4 bg-dark-3 text-light-1">
+              <FormControl className="no-focus border border-dark-4 bg-dark-1 text-light-1">
                 <Textarea rows={15} {...field} />
               </FormControl>
               <FormMessage />

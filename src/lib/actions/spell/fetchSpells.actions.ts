@@ -1,6 +1,7 @@
 "use server";
 
 import connectDB from "@/lib/dbConnect";
+import CommunityModel from "@/models/community.model";
 import SpellModel from "@/models/spell.model";
 import UserModel from "@/models/user.model";
 
@@ -17,7 +18,14 @@ export async function fetchSpells(pageNumber = 1, pageSize = 20) {
         .sort({ createdAt: 'desc' }) // Sort by creation date in descending order
         .skip(skipAmount) // Skip the specified number of spells for pagination
         .limit(pageSize) // Limit the results to the specified page size
-        .populate({ path: 'author', model: UserModel }) // Populate the author field with data from UserModel
+        .populate({ 
+            path: 'author', 
+            model: UserModel,
+        }) // Populate the author field with data from UserModel
+        .populate({
+            path: 'community',
+            model: CommunityModel,
+        })
         .populate({ 
             path: 'children',
             populate: {
